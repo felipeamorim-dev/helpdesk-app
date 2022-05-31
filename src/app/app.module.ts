@@ -5,6 +5,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+// Importe de formulários reativos e cliente http
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HttpClientModule } from '@angular/common/http';
+
 // Importe de módulos de bibliotecas externas
 import { ToastrModule } from 'ngx-toastr';
 import { NgxMaskModule } from 'ngx-mask';
@@ -28,13 +32,19 @@ import { MatCardModule } from '@angular/material/card';
 // Importe dos componentes da aplicação
 import { HomeComponent } from './components/home/home.component';
 import { NavComponent } from './components/nav/nav.component';
+import { HeaderComponent } from './components/header/header.component';
+import { TecnicoComponent } from './components/tecnico/tecnico.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NavComponent],
+  declarations: [AppComponent, HomeComponent, NavComponent, HeaderComponent, TecnicoComponent, LoginComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     MatFormFieldModule,
     MatPaginatorModule,
     MatSnackBarModule,
