@@ -35,6 +35,7 @@ import { NavComponent } from './components/nav/nav.component';
 import { HeaderComponent } from './components/header/header.component';
 import { TecnicoComponent } from './components/tecnico/tecnico.component';
 import { LoginComponent } from './components/login/login.component';
+import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, NavComponent, HeaderComponent, TecnicoComponent, LoginComponent],
@@ -66,7 +67,7 @@ import { LoginComponent } from './components/login/login.component';
     }),
     NgxMaskModule.forRoot(),
   ],
-  providers: [],
+  providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
