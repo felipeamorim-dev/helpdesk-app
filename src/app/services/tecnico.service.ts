@@ -11,8 +11,8 @@ export class TecnicoService {
 
   constructor(private http: HttpClient) { }
 
-  findAll(): Observable<Tecnico>{
-    return this.http.get<Tecnico>(`${environment.BASE_URL}/tecnicos`);
+  findAll(): Observable<Array<Tecnico>>{
+    return this.http.get<Array<Tecnico>>(`${environment.BASE_URL}/tecnicos`);
   }
 
   findById(id: any): Observable<Tecnico> {
