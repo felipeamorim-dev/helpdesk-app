@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { NavComponent } from './components/nav/nav.component';
 import { TecnicoComponent } from './components/tecnico/tecnico.component';
+import { TecnicoCreateComponent } from './components/tecnico/tecnico-create/tecnico-create.component';
 
 const routes: Routes = [
   {
@@ -20,7 +21,11 @@ const routes: Routes = [
       },
       {
         path: 'tecnicos',
-        component: TecnicoComponent
+        component: TecnicoComponent,
+      },
+      {
+        path: 'tecnicos/create',
+        component: TecnicoCreateComponent
       }
     ]
   },
