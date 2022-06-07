@@ -17,7 +17,7 @@ export class TecnicoDeleteComponent implements OnInit {
     cpf:        '',
     email:      '',
     senha:      '',
-    perfil:     [],
+    perfis:     [],
     dataCriacao: ''
   }
 
@@ -35,7 +35,7 @@ export class TecnicoDeleteComponent implements OnInit {
 
   findById(): void {
     this.service.findById(this.tecnico.id).pipe(take(1)).subscribe(resposta => {
-      resposta.perfil = []
+      resposta.perfis = []
       this.tecnico = resposta;
     })
   }

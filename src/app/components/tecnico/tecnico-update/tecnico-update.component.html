@@ -5,9 +5,9 @@
      <img class="fullWidth" src="assets/img/tecnico-create.svg" alt="Help Desk - Dicas de um DEV">
 
      <section class="section">
-        <mat-checkbox (click)="addPerfil(0)" class="margin" color="primary">Admin</mat-checkbox>
-        <mat-checkbox (click)="addPerfil(1)" class="margin" color="primary">Cliente</mat-checkbox>
-        <mat-checkbox (click)="addPerfil(2)" [checked]="true" class="margin" color="primary">Tecnico</mat-checkbox>
+        <mat-checkbox (click)="addPerfil(0)" [checked]="checkedAdmin" class="margin" color="primary">Admin</mat-checkbox>
+        <mat-checkbox (click)="addPerfil(1)" [checked]="checkedCliente" class="margin" color="primary">Cliente</mat-checkbox>
+        <mat-checkbox (click)="addPerfil(2)" [checked]="checkedTecnico" class="margin" color="primary">Tecnico</mat-checkbox>
       </section>
 
       <mat-form-field class="fullWidth" appearance="legacy">

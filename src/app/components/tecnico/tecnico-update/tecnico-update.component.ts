@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit, AfterContentChecked } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -11,16 +11,21 @@ import { TecnicoService } from 'src/app/services/tecnico.service';
   templateUrl: './tecnico-update.component.html',
   styleUrls: ['./tecnico-update.component.css']
 })
-export class TecnicoUpdateComponent implements OnInit {
+export class TecnicoUpdateComponent implements OnInit, AfterContentChecked {
   tecnico: Tecnico = {
     id:         '',
     nome:       '',
     cpf:        '',
     email:      '',
     senha:      '',
-    perfil:     [],
+    perfis:     [],
     dataCriacao: ''
   }
+
+  checkedTecnico: boolean = true;
+  checkedAdmin: boolean = false;
+  checkedCliente: boolean = false;
+
 
   nome: FormControl =  new FormControl(null, Validators.minLength(3));
   cpf: FormControl =       new FormControl(null, Validators.required);
@@ -34,6 +39,10 @@ export class TecnicoUpdateComponent implements OnInit {
     private route:   ActivatedRoute,
     ) { }
 
+  ngAfterContentChecked(): void {
+    console.log(this.tecnico)
+  }
+
   ngOnInit(): void {
     this.tecnico.id = this.route.snapshot.paramMap.get('id');
     this.findById();
@@ -41,8 +50,9 @@ export class TecnicoUpdateComponent implements OnInit {
 
   findById(): void {
     this.service.findById(this.tecnico.id).pipe(take(1)).subscribe(resposta => {
-      resposta.perfil = []
+      resposta.perfis = [];
       this.tecnico = resposta;
+      this.tecnico.perfis.push(2);
     })
   }
 
@@ -65,10 +75,10 @@ export class TecnicoUpdateComponent implements OnInit {
   }
 
   addPerfil(perfil: any): void {
-    if(this.tecnico.perfil.includes(perfil)) {
-      this.tecnico.perfil.splice(this.tecnico.perfil.indexOf(perfil), 2);
+    if(this.tecnico.perfis.includes(perfil)) {
+      this.tecnico.perfis.splice(this.tecnico.perfis.indexOf(perfil), 1);
     } else {
-      this.tecnico.perfil.push(perfil);
+      this.tecnico.perfis.push(perfil);
     }
 
   }
@@ -78,4 +88,8 @@ export class TecnicoUpdateComponent implements OnInit {
      && this.email.valid && this.senha.valid
   }
 
+  verifyPerfil(perfil: string) {
+    if(perfil === 'CLIENTES') this.checkedCliente = !this.checkedCliente;
+    if(perfil === 'ADMIN') this.checkedAdmin = !this.checkedAdmin;
+  }
 }

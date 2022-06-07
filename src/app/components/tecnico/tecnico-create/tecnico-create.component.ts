@@ -18,7 +18,7 @@ export class TecnicoCreateComponent implements OnInit {
     cpf: '',
     email: '',
     senha: '',
-    perfil: [],
+    perfis: [],
     dataCriacao: ''
   }
 
@@ -36,11 +36,11 @@ export class TecnicoCreateComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addPerfil(perfil: any): void {
-    if (this.tecnico.perfil.includes(perfil)) {
-      this.tecnico.perfil.slice(this.tecnico.perfil.indexOf(perfil), 2);
+  addPerfil(perfis: any): void {
+    if (this.tecnico.perfis.includes(perfis)) {
+      this.tecnico.perfis.slice(this.tecnico.perfis.indexOf(perfis), 1);
     } else {
-      this.tecnico.perfil.push(perfil);
+      this.tecnico.perfis.push(perfis);
     }
   }
 
