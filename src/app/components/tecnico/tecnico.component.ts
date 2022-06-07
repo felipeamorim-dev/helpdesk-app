@@ -13,7 +13,7 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class TecnicoComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'nome', 'cpf', 'email'];
+  displayedColumns: string[] = ['id', 'nome', 'cpf', 'email', 'acoes'];
   tecnicos!: Array<Tecnico>;
   dataSource = new MatTableDataSource(this.tecnicos);
 
