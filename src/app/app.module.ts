@@ -39,9 +39,13 @@ import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 import { TecnicoCreateComponent } from './components/tecnico/tecnico-create/tecnico-create.component';
 import { TecnicoUpdateComponent } from './components/tecnico/tecnico-update/tecnico-update.component';
 import { TecnicoDeleteComponent } from './components/tecnico/tecnico-delete/tecnico-delete.component';
+import { ClienteListComponent } from './components/cliente/cliente-list/cliente-list.component';
+import { ClienteCreateComponent } from './components/cliente/cliente-create/cliente-create.component';
+import { ClienteUpdateComponent } from './components/cliente/cliente-update/cliente-update.component';
+import { ClienteDeleteComponent } from './components/cliente/cliente-delete/cliente-delete.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NavComponent, HeaderComponent, TecnicoComponent, LoginComponent, TecnicoCreateComponent, TecnicoUpdateComponent, TecnicoDeleteComponent],
+  declarations: [AppComponent, HomeComponent, NavComponent, HeaderComponent, TecnicoComponent, LoginComponent, TecnicoCreateComponent, TecnicoUpdateComponent, TecnicoDeleteComponent, ClienteListComponent, ClienteCreateComponent, ClienteUpdateComponent, ClienteDeleteComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
