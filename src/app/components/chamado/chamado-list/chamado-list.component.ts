@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { map, take } from 'rxjs';
 import { Chamado } from 'src/app/models/chamado';
 import { ChamadoService } from 'src/app/services/chamado.service';
@@ -10,8 +12,13 @@ import { ChamadoService } from 'src/app/services/chamado.service';
 })
 export class ChamadoListComponent implements OnInit {
 
-  dataSource!: Array<Chamado>;
+  chamados!: Array<Chamado>;
+  chamadosFiltrados!: Array<Chamado>;
+  dataSource = new MatTableDataSource(this.chamados);
   displayedColumns: Array<String> = ['id', 'titulo', 'cliente', 'tecnico', 'dataAbertura', 'prioridade', 'status', 'acoes'];
+
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
 
   constructor(private service: ChamadoService) { }
 
@@ -21,13 +28,22 @@ export class ChamadoListComponent implements OnInit {
       .pipe(map(data => this.transformaData(data)))
       .subscribe({
         next: data => {
-          this.dataSource = data;
+          this.chamados = data;
+          this.dataSource = new MatTableDataSource<Chamado>(data);
+          this.dataSource.paginator = this.paginator;
         }
       });
   }
 
-  orderByStatus(status: any){
+  orderByStatus(status: any) {
+    let chamadoFilter: Chamado[] = [];
+    this.chamados.forEach(chamado => {
+      if (chamado.status === status) chamadoFilter.push(chamado);
+    });
 
+    this.chamadosFiltrados = chamadoFilter;
+    this.dataSource = new MatTableDataSource<Chamado>(chamadoFilter);
+    this.dataSource.paginator = this.paginator;
   }
 
   transformaData(data: any): any{
@@ -39,7 +55,8 @@ export class ChamadoListComponent implements OnInit {
     return data;
   }
 
-  applyFilter(event: any) {
-
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
