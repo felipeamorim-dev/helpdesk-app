@@ -58,32 +58,12 @@ export class ChamadoUpdateComponent implements OnInit {
   findById(id: any){
     this.chamadoService.findById(id)
       .pipe(take(1))
-      .pipe(map(data => this.transformaData(data)))
       .subscribe({
         next: chamado => {
           this.chamado = chamado;
         },
         error: () => this.toastService.info('Chamado não encontrado')
     });
-  }
-
-  transformaData(chamado: any): any{
-    chamado.prioridade = chamado.prioridade === 0 ? 'BAIXA' : chamado.prioridade === 1 ? 'MÉDIA' : 'ALTA';
-    chamado.status = chamado.status === 0 ? 'ABERTO' : chamado.status === 1 ? 'ANDAMENTO' : 'ENCERRADO';
-
-    return chamado;
-  }
-
-  transformaPrioridade(chamado: any): void{
-    if (chamado.prioridade == 'BAIXO' || chamado.prioridade == 'MÉDIO' || chamado.prioridade == 'ALTA') {
-      chamado.prioridade = chamado.prioridade === 'BAIXA' ? 0 : chamado.prioridade === 'MÉDIA' ? 1 : 2;
-    }
-  }
-
-  transformaStatus(chamado: any): void{
-    if (chamado.status == 'ABERTO' || chamado.status == 'ANDAMENTO' || chamado.status == 'ENCERRADO') {
-      chamado.status = chamado.status === 'ABERTO' ? 0 : chamado.status === 'ANDAMENTO' ? 1 : 2;
-    }
   }
 
   findAllTecnicos(): void {
@@ -107,9 +87,6 @@ export class ChamadoUpdateComponent implements OnInit {
   update(){
     this.chamado.nomeTecnico = this.tecnicos.filter(tecnico => tecnico.id == this.chamado.tecnicoId)[0].nome;
     this.chamado.nomeCliente = this.clientes.filter(cliente => cliente.id == this.chamado.clienteId)[0].nome;
-    this.transformaPrioridade(this.chamado);
-    this.transformaStatus(this.chamado);
-    console.log(this.chamado)
 
     this.chamadoService.update(this.chamado).pipe(take(1)).subscribe({
       next: () => {
@@ -118,6 +95,14 @@ export class ChamadoUpdateComponent implements OnInit {
       },
       error: ex => this.toastService.error(ex.error.error)
     })
+  }
+
+  retornaStatus(status: any): string {
+    return status == '0' ? 'ABERTO' : status == '1' ? 'EM ANDAMENTO' : 'ENCERRADO';
+  }
+
+  retornaPrioridade(prioridade: any): string {
+    return prioridade == '0' ? 'BAIXA' : prioridade == '1' ? 'MÉDIA' : 'ALTA';
   }
 
   validaCampos(): boolean{
