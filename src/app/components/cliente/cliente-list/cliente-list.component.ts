@@ -37,7 +37,10 @@ export class ClienteListComponent implements OnInit {
       }
     })
   }
-
+  /**
+   * Método para realizar a filtragem de elementos da tabela de clientes
+   * @param event evento de digitação do nome do elemento a ser filtrado na tabela de clientes
+   */
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

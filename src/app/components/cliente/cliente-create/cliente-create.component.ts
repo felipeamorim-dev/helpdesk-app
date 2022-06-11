@@ -34,7 +34,10 @@ export class ClienteCreateComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  /**
+   * Método para adicionar ou retirar o perfil do cliente no formulário de cadastro
+   * @param perfis enumeração para definir o nivel de acesso do cliente cadastrado na base
+   */
   addPerfil(perfis: any): void {
     if (this.cliente.perfis.includes(perfis)) {
       this.cliente.perfis.slice(this.cliente.perfis.indexOf(perfis), 1);
@@ -42,7 +45,9 @@ export class ClienteCreateComponent implements OnInit {
       this.cliente.perfis.push(perfis);
     }
   }
-
+  /**
+   * Método para enviar a requisição de criação de novos clientes na base de dados
+   */
   create(): void {
     this.service.create(this.cliente).pipe(take(1)).subscribe({
       next: () => {
@@ -60,7 +65,10 @@ export class ClienteCreateComponent implements OnInit {
       }
     })
   }
-
+  /**
+   * Método para realizar a validação do formulário de criação de novos clientes
+   * @returns retorna verdadeiro quando todos os campos do formulários estão devidamente preenchidos e falso para o contrário
+   */
   validaCampos(): boolean {
     return this.nome.valid && this.cpf.valid
      && this.email.valid && this.senha.valid

@@ -34,7 +34,10 @@ export class ChamadoListComponent implements OnInit {
         }
       });
   }
-
+  /**
+   * Método para realizar a filtragem por status do chamado.
+   * @param status do chamado
+   */
   orderByStatus(status: any) {
     let chamadoFilter: Chamado[] = [];
     this.chamados.forEach(chamado => {
@@ -45,7 +48,11 @@ export class ChamadoListComponent implements OnInit {
     this.dataSource = new MatTableDataSource<Chamado>(chamadoFilter);
     this.dataSource.paginator = this.paginator;
   }
-
+  /**
+   * Método para transforma as enumerações de prioridade e status do chamado em string de valores correspondentes a suas descrições
+   * @param data tabela de dados de chamados
+   * @returns retorna a tabela de dados de chamados transformadas
+   */
   transformaData(data: any): any{
     data.forEach((chamado: any) => {
       chamado.prioridade = chamado.prioridade === 0 ? 'BAIXA' : chamado.prioridade === 1 ? 'MÉDIA' : 'ALTA';
@@ -54,7 +61,10 @@ export class ChamadoListComponent implements OnInit {
 
     return data;
   }
-
+  /**
+   * Método para realizar a busca de elementos da tabela de chamados
+   * @param event parâmetro de filtro de busca
+   */
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

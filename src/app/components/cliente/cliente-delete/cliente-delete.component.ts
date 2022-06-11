@@ -32,14 +32,18 @@ export class ClienteDeleteComponent implements OnInit {
     this.cliente.id = this.route.snapshot.paramMap.get('id');
     this.findById();
    }
-
+  /**
+   * Método para buscar um cliente por id
+   */
   findById(): void {
     this.service.findById(this.cliente.id).pipe(take(1)).subscribe(resposta => {
       resposta.perfis = []
       this.cliente = resposta;
     })
   }
-
+  /**
+   * Método para solicitar a deleção do cliente no banco de dados
+   */
   delete(): void {
     this.service.delete(this.cliente.id).pipe(take(1)).subscribe({
       next: () => {

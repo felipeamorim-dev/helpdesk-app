@@ -35,7 +35,10 @@ export class TecnicoCreateComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  /**
+   * Método para adicionar os perfis ao novo técnico cadastrado na base
+   * @param perfis perfil selecionado no formulário
+   */
   addPerfil(perfis: any): void {
     if (this.tecnico.perfis.includes(perfis)) {
       this.tecnico.perfis.slice(this.tecnico.perfis.indexOf(perfis), 1);
@@ -43,7 +46,9 @@ export class TecnicoCreateComponent implements OnInit {
       this.tecnico.perfis.push(perfis);
     }
   }
-
+  /**
+   * Método para solicitar a inclusão do novo técnico ao bando de dados
+   */
   create(): void {
     this.service.create(this.tecnico).pipe(take(1)).subscribe({
       next: () => {
@@ -61,7 +66,10 @@ export class TecnicoCreateComponent implements OnInit {
       }
     })
   }
-
+  /**
+   * Método para validar o acesso ao botão de criar um técnico
+   * @returns verdadeiro para o formúlario valido ou falso para o contrário
+   */
   validaCampos(): boolean {
     return this.nome.valid && this.cpf.valid
      && this.email.valid && this.senha.valid

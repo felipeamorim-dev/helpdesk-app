@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterContentInit, AfterContentChecked } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -11,7 +11,7 @@ import { TecnicoService } from 'src/app/services/tecnico.service';
   templateUrl: './tecnico-update.component.html',
   styleUrls: ['./tecnico-update.component.css']
 })
-export class TecnicoUpdateComponent implements OnInit, AfterContentChecked {
+export class TecnicoUpdateComponent implements OnInit {
   tecnico: Tecnico = {
     id:         '',
     nome:       '',
@@ -39,15 +39,13 @@ export class TecnicoUpdateComponent implements OnInit, AfterContentChecked {
     private route:   ActivatedRoute,
     ) { }
 
-  ngAfterContentChecked(): void {
-    console.log(this.tecnico)
-  }
-
   ngOnInit(): void {
     this.tecnico.id = this.route.snapshot.paramMap.get('id');
     this.findById();
    }
-
+  /**
+   * Método para buscar os dados do técnico que será atualizado
+   */
   findById(): void {
     this.service.findById(this.tecnico.id).pipe(take(1)).subscribe(resposta => {
       resposta.perfis = [];
@@ -55,7 +53,9 @@ export class TecnicoUpdateComponent implements OnInit, AfterContentChecked {
       this.tecnico.perfis.push(2);
     })
   }
-
+  /**
+   * Método para solicitar a atualização de dados do técnico ao backend da aplicação
+   */
   update(): void {
     this.service.update(this.tecnico).pipe(take(1)).subscribe({
       next: () => {
@@ -73,7 +73,10 @@ export class TecnicoUpdateComponent implements OnInit, AfterContentChecked {
       }
     })
   }
-
+  /**
+   * Método para adicionar o perfil do técnico a ser atualizado
+   * @param perfil selecionado no formulário
+   */
   addPerfil(perfil: any): void {
     if(this.tecnico.perfis.includes(perfil)) {
       this.tecnico.perfis.splice(this.tecnico.perfis.indexOf(perfil), 1);
@@ -82,12 +85,18 @@ export class TecnicoUpdateComponent implements OnInit, AfterContentChecked {
     }
 
   }
-
+  /**
+   * Método utilizado para liberar o botão de atualização do formulário após validar os campos do formulário
+   * @returns verdadeiro quando todos os campos do formulário passaram na validação e falso para o contrario
+   */
   validaCampos(): boolean {
     return this.nome.valid && this.cpf.valid
      && this.email.valid && this.senha.valid
   }
-
+  /**
+   * Método para adicionar ou retirar o checked do checkbox do perfil do técnico no formulário
+   * @param perfil selecionado no formulário
+   */
   verifyPerfil(perfil: string) {
     if(perfil === 'CLIENTES') this.checkedCliente = !this.checkedCliente;
     if(perfil === 'ADMIN') this.checkedAdmin = !this.checkedAdmin;

@@ -29,7 +29,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  /**
+   * Método para realizar a requisição de login do usuário
+   */
   logar(){
     this.authService.authenticate(this.creds).pipe(take(1)).subscribe({
       next: resposta => {
@@ -39,7 +41,10 @@ export class LoginComponent implements OnInit {
       error: () => this.toast.error('Usuário e/ou senha inválidos')
     })
   }
-
+  /**
+   * Método utilizado para liberar o botão de login
+   * @returns retorna verdadeiro se os vampos dos formulários estiver valido
+   */
   validaCampos(): boolean {
     return this.email.valid && this.senha.valid;
   }

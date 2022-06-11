@@ -50,7 +50,9 @@ export class ChamadoCreateComponent implements OnInit {
     this.findAllTecnicos();
     this.findAllClientes();
   }
-
+  /**
+   * Método para buscar todos os técnicos da empresa disponiveis para a realização do serviço
+   */
   findAllTecnicos(): void {
     this.tecnicoService.findAll().pipe(take(1)).subscribe({
       next: data => {
@@ -59,7 +61,9 @@ export class ChamadoCreateComponent implements OnInit {
       error: () => this.toastService.info('Técnicos não encontrados')
     });
   }
-
+  /**
+   * Método para buscar todos os clientes que estão cadastrados na plataforma
+   */
   findAllClientes(): void {
     this.clienteService.findAll().pipe(take(1)).subscribe({
       next: data => {
@@ -68,7 +72,9 @@ export class ChamadoCreateComponent implements OnInit {
       error: () => this.toastService.info('Clientes não encontrados')
     });
   }
-
+  /**
+   * Método para enviar a requisição de criar chamado para o backend da aplicação
+   */
   create(){
     this.chamado.nomeTecnico = this.tecnicos.filter(tecnico => tecnico.id == this.chamado.tecnicoId)[0].nome;
     this.chamado.nomeCliente = this.clientes.filter(cliente => cliente.id == this.chamado.clienteId)[0].nome;
@@ -80,7 +86,10 @@ export class ChamadoCreateComponent implements OnInit {
       error: ex => this.toastService.error(ex.error.error)
     });
   }
-
+  /**
+   * Método para validar o formulário de criação de chamados
+   * @returns retorna verdadeiro ou falso de acordo com a validação do formulário
+   */
   validaCampos(): boolean{
     return this.prioridade.valid && this.status.valid && this.titulo.valid
        && this.observacoes.valid && this.tecnico.valid && this.cliente.valid

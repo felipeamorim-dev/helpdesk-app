@@ -38,7 +38,10 @@ export class TecnicoComponent implements OnInit {
       }
     })
   }
-
+  /**
+   * Método para realizar a filtragem de elementos da tabela de técnicos
+   * @param event evento de digitação do nome do elemento a ser filtrado na tabela de técnicos
+   */
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

@@ -38,15 +38,13 @@ export class ClienteUpdateComponent implements OnInit {
     private route:   ActivatedRoute,
     ) { }
 
-  ngAfterContentChecked(): void {
-    console.log(this.cliente)
-  }
-
   ngOnInit(): void {
     this.cliente.id = this.route.snapshot.paramMap.get('id');
     this.findById();
    }
-
+  /**
+   * Método para realizar a busca de um cliente pelo id
+   */
   findById(): void {
     this.service.findById(this.cliente.id).pipe(take(1)).subscribe(resposta => {
       resposta.perfis = [];
@@ -54,7 +52,9 @@ export class ClienteUpdateComponent implements OnInit {
       this.cliente.perfis.push(1);
     })
   }
-
+  /**
+   * Método para solicitar a atualizados dos dados do cliente
+   */
   update(): void {
     this.service.update(this.cliente).pipe(take(1)).subscribe({
       next: () => {
@@ -72,7 +72,10 @@ export class ClienteUpdateComponent implements OnInit {
       }
     })
   }
-
+  /**
+   * Método para adicionar ou retirar o perfil do cliente no formulário de cadastro
+   * @param perfis enumeração para definir o nivel de acesso do cliente cadastrado na base
+   */
   addPerfil(perfil: any): void {
     if(this.cliente.perfis.includes(perfil)) {
       this.cliente.perfis.splice(this.cliente.perfis.indexOf(perfil), 1);
@@ -81,12 +84,18 @@ export class ClienteUpdateComponent implements OnInit {
     }
 
   }
-
+  /**
+   * Método para realizar a validação do formulário de criação de novos clientes
+   * @returns retorna verdadeiro quando todos os campos do formulários estão devidamente preenchidos e falso para o contrário
+   */
   validaCampos(): boolean {
     return this.nome.valid && this.cpf.valid
      && this.email.valid && this.senha.valid
   }
-
+  /**
+   * Método para realizar a verificação do perfil do cliente.
+   * @param perfil perfil a ser analisado
+   */
   verifyPerfil(perfil: string) {
     if(perfil === 'TECNICO') this.checkedTecnico = !this.checkedTecnico;
     if(perfil === 'ADMIN') this.checkedAdmin = !this.checkedAdmin;

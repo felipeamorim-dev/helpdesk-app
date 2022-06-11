@@ -54,7 +54,10 @@ export class ChamadoUpdateComponent implements OnInit {
     this.findAllClientes();
     this.findAllTecnicos();
   }
-
+  /**
+   * Método para buscar o chamado que deve ser atualizado
+   * @param id do chamado a ser buscado
+   */
   findById(id: any){
     this.chamadoService.findById(id)
       .pipe(take(1))
@@ -65,7 +68,9 @@ export class ChamadoUpdateComponent implements OnInit {
         error: () => this.toastService.info('Chamado não encontrado')
     });
   }
-
+  /**
+   * Método para buscar todos os técnicos que serão exibidos no componente de seleção de técnicos
+   */
   findAllTecnicos(): void {
     this.tecnicoService.findAll().pipe(take(1)).subscribe({
       next: data => {
@@ -74,7 +79,9 @@ export class ChamadoUpdateComponent implements OnInit {
       error: () => this.toastService.info('Técnicos não encontrados')
     });
   }
-
+  /**
+   * Método utilizado para buscar todos os clientes a serem exibidos na seleção de cliente que solicitou a assistência técnica
+   */
   findAllClientes(): void {
     this.clienteService.findAll().pipe(take(1)).subscribe({
       next: data => {
@@ -83,7 +90,9 @@ export class ChamadoUpdateComponent implements OnInit {
       error: () => this.toastService.info('Clientes não encontrados')
     });
   }
-
+  /**
+   * Método para realizar a atualização do chamado
+   */
   update(){
     this.chamado.nomeTecnico = this.tecnicos.filter(tecnico => tecnico.id == this.chamado.tecnicoId)[0].nome;
     this.chamado.nomeCliente = this.clientes.filter(cliente => cliente.id == this.chamado.clienteId)[0].nome;
@@ -96,15 +105,26 @@ export class ChamadoUpdateComponent implements OnInit {
       error: ex => this.toastService.error(ex.error.error)
     })
   }
-
+  /**
+   * Método para transformar o valor correspondente ao status do chamado em string
+   * @param status do chamado atual
+   * @returns retorna uma string para o status do chamado
+   */
   retornaStatus(status: any): string {
     return status == '0' ? 'ABERTO' : status == '1' ? 'EM ANDAMENTO' : 'ENCERRADO';
   }
-
+  /**
+   * Método para converter o valor da prioridade em uma string legivel para o usuário
+   * @param prioridade do chamado atual
+   * @returns uma string que descreve a prioridade desse chamado
+   */
   retornaPrioridade(prioridade: any): string {
     return prioridade == '0' ? 'BAIXA' : prioridade == '1' ? 'MÉDIA' : 'ALTA';
   }
-
+  /**
+   * Método para realizar a validação do formulário do chamado a ser atualizado pelo técnico
+   * @returns uma validação para os campos do formulário do chamado
+   */
   validaCampos(): boolean{
     return this.prioridade.valid && this.status.valid && this.titulo.valid
        && this.observacoes.valid && this.tecnico.valid && this.cliente.valid

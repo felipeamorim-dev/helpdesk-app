@@ -18,7 +18,9 @@ export class NavComponent implements OnInit {
   ngOnInit(): void {
     this.router.navigate(['home']);
   }
-
+  /**
+   * Método para realizar o logout do usuário da aplicação
+   */
   logout() {
     this.router.navigate(['login']);
     this.authService.logout();

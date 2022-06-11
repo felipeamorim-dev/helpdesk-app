@@ -9,7 +9,12 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 export class AuthGuard implements CanActivate {
 
   constructor(private authService: AuthService, private router: Router) {}
-
+  /**
+   * Método para proteger as rotas das páginas da aplicação
+   * @param route
+   * @param state
+   * @returns retornar verdadeiro para as rotas que podem ser visualizadas pelo usuário autenticado
+   */
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {

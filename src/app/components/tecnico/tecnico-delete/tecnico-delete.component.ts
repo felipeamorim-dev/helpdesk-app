@@ -32,14 +32,18 @@ export class TecnicoDeleteComponent implements OnInit {
     this.tecnico.id = this.route.snapshot.paramMap.get('id');
     this.findById();
    }
-
+  /**
+   * Método para buscar os dados do técnico por id
+   */
   findById(): void {
     this.service.findById(this.tecnico.id).pipe(take(1)).subscribe(resposta => {
       resposta.perfis = []
       this.tecnico = resposta;
     })
   }
-
+  /**
+   * Método para solicitar o exclusão do cadastro do técnico do bando de dados através do seu id
+   */
   delete(): void {
     this.service.delete(this.tecnico.id).pipe(take(1)).subscribe({
       next: () => {

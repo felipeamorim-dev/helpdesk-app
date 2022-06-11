@@ -33,7 +33,9 @@ export class ChamadoReadComponent implements OnInit {
     this.chamado.id = this.route.snapshot.paramMap.get('id');
     this.findById();
   }
-
+  /**
+   * Método para buscar pelo id o chamado
+   */
   findById(): void {
     this.chamadoService.findById(this.chamado.id).pipe(take(1)).subscribe({
       next: resposta => {
@@ -43,7 +45,11 @@ export class ChamadoReadComponent implements OnInit {
         this.toastService.error(ex.error.error);
     }});
   }
-
+  /**
+   * Método para converter o valor do status do chamado para uma string que descrevá-o.
+   * @param status do chamado
+   * @returns retorna uma string que descreve o status do chamado do usuário
+   */
   retornaStatus(status: any): string {
     if(status == '0') {
       return 'ABERTO'
@@ -53,7 +59,11 @@ export class ChamadoReadComponent implements OnInit {
       return 'ENCERRADO'
     }
   }
-
+  /**
+   * Método para converter o valor da prioridade em um string descritiva da prioridade do chamado
+   * @param prioridade do chamado
+   * @returns retorna uma string que descreve a prioridade do chamado para o usuário
+   */
   retornaPrioridade(prioridade: any): string {
     if(prioridade == '0') {
       return 'BAIXA'
